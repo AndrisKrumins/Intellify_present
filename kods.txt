@@ -1,3 +1,4 @@
+from pathlib import Path
 import streamlit as st
 
 st.set_page_config(
@@ -5,6 +6,24 @@ st.set_page_config(
     page_icon="🏢",
     layout="wide",
 )
+
+# ---------- PATHS ----------
+BASE_DIR = Path(__file__).resolve().parent
+ASSETS_DIR = BASE_DIR / "assets"
+
+WARNINGS_IMG = ASSETS_DIR / "Warnings.png"
+WARNINGS1_IMG = ASSETS_DIR / "Warnings1.png"
+ABCD_IMG = ASSETS_DIR / "ABCD_1.png"
+ABCD1_IMG = ASSETS_DIR / "ABCD_2.png"
+HEATING_IMG = ASSETS_DIR / "Heating_cons.png"
+ELECTRICAL_IMG = ASSETS_DIR / "Electrical_cons.png"
+SANKEY1_IMG = ASSETS_DIR / "sankey_1.png"
+SANKEY2_IMG = ASSETS_DIR / "sankey_2.png"
+
+TIME_SCH = ASSETS_DIR / "Schedule.png"
+CHANGE = ASSETS_DIR / "Change.png"
+ALG_SEND = ASSETS_DIR / "Alg_send.png"
+PROGN = ASSETS_DIR / "Predict.png"
 
 # ---------- THEME ----------
 BG = "#22344d"
@@ -20,6 +39,8 @@ SUCCESS = "#79e2a0"
 st.markdown(
     f"""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;800&display=swap');
+
     :root {{
         --bg: {BG};
         --surface: {SURFACE};
@@ -30,6 +51,10 @@ st.markdown(
         --accent: {ACCENT};
         --accent-2: {ACCENT_2};
         --success: {SUCCESS};
+    }}
+
+    html, body, [class*="css"] {{
+        font-family: 'Raleway', sans-serif;
     }}
 
     .stApp {{
@@ -87,7 +112,8 @@ st.markdown(
         font-size: 3rem;
         line-height: 1.0;
         color: var(--text);
-        letter-spacing: 0.02em;
+        letter-spacing: 0.08em;
+        font-weight: 800;
     }}
 
     .hero-subtitle {{
@@ -131,7 +157,7 @@ st.markdown(
         background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
         border: 1px solid var(--border);
         border-radius: 20px;
-        padding: 1.1rem 1.1rem 1rem 1.1rem;
+        padding: 1.1rem;
         min-height: 190px;
         box-shadow: 0 8px 24px rgba(0,0,0,0.14);
         margin-bottom: 1rem;
@@ -213,7 +239,6 @@ st.markdown(
     }}
 
     .timeline-step {{
-        position: relative;
         background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
         border: 1px solid var(--border);
         border-radius: 18px;
@@ -278,34 +303,33 @@ st.markdown(
         line-height: 1.5;
     }}
 
-    .bullet-box {{
+    .gallery-shell {{
         background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
         border: 1px solid var(--border);
-        border-radius: 22px;
-        padding: 1.3rem 1.4rem;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        border-radius: 20px;
+        padding: 1rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+        margin-bottom: 1rem;
     }}
 
-    .bullet-item {{
-        display: flex;
-        gap: 0.8rem;
-        align-items: flex-start;
+    .gallery-caption {{
+        color: var(--text);
+        font-weight: 700;
+        margin-top: 0.75rem;
+        margin-bottom: 0.25rem;
+        font-size: 1rem;
+    }}
+
+    .gallery-desc {{
         color: var(--muted);
-        line-height: 1.6;
-        margin-bottom: 0.8rem;
-        font-size: 1rem;
-    }}
-
-    .bullet-dot {{
-        color: var(--success);
-        font-weight: 900;
-        font-size: 1rem;
+        font-size: 0.94rem;
         line-height: 1.5;
     }}
 
-    .modal-overlay {{
-        position: relative;
-        margin-top: 1rem;
+    .gallery-note {{
+        color: var(--accent-2);
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
     }}
 
     .modal-bg {{
@@ -341,7 +365,6 @@ st.markdown(
         line-height: 1.5;
     }}
 
-    /* Streamlit inputs for login preview */
     div[data-testid="stTextInput"] input {{
         background: rgba(255,255,255,0.06) !important;
         border: 1px solid rgba(255,255,255,0.15) !important;
@@ -402,7 +425,7 @@ DECK = [
     {
         "type": "timeline",
         "title": "A five-stage path from controls to connected buildings",
-        "subtitle": "A practical roadmap for turning fragmented building systems into an integrated service platform",
+        "subtitle": "Testet way for turning fragmented building systems into an integrated service platform",
         "items": [
             {"title": "Standardisation", "body": "Automation libraries, technical documentation, data points and communication standards."},
             {"title": "Automation", "body": "HVAC logic, BMS improvements and controller configuration for reliable local control."},
@@ -446,41 +469,62 @@ DECK = [
         "title": "Core solution modules",
         "subtitle": "A modular platform that supports meter data, indoor climate, analytics and portfolio control",
         "items": [
-            {"title": "Energy Meter Management", "body": "Meter data collection, export and integration support for multi-building environments."},
-            {"title": "Climate Management", "body": "Indoor climate monitoring with clear visualisation and professional assessment."},
-            {"title": "Technical Node Manager", "body": "Flexible device and field integration for HVAC service and automation teams."},
-            {"title": "Analytics", "body": "Reliable building data, frequent transmission and support for legacy automation systems."},
-            {"title": "Portfolio Manager", "body": "Single source of truth across buildings with transparency and management visibility."},
-            {"title": "HVAC Performance Optimiser", "body": "Data-driven savings, ROI visibility, climate stability and equipment protection."},
+            {"title": "Smart Energy Meter Management", "body": "Centralize and validate energy consumption data through remote meter readings and custom export option."},
+            {"title": "Indoor climate Intelligence", "body": "Real-time climate insights and expert evaluations for healthier, more comfortable and well-controlled indoor environment."},
+            {"title": "Buildings Systems supervisorr", "body": "Centralize HVAC systems, track performance and manage maintenance to ensure top service standard."},
+            {"title": "Energy & Efficiency oversight", "body": "Transform scattered energy and monitor energy use, CO₂ footprint, and ESG performance with precise data based insights."},
+            {"title": "Portfolio Energy &Asset suite", "body": "Gain a unified overview of energy, CO₂, and system status to guide smarter budgeting, planning, and sustainability decisions."},
+            {"title": "HVAC Performance Optimiser", "body": "Machine Learning algorithms continuously fine-tune performance to cut energy costs while maintaining good indoor conditions."},
         ],
         "footer": "Solution modules",
     },
     {
         "type": "cards",
-        "title": "Business priorities: software, hardware and commercial model",
+        "title": "Business priorities: our own software, own software for hardware and fast, reliable, price efficient ",
         "subtitle": "Three coordinated decision areas define platform readiness and scale potential",
         "cols": 3,
         "items": [
-            {"title": "Software foundation", "body": "Server security, backend improvements, database logic, migration and ML enablement."},
-            {"title": "Hardware enablement", "body": "Wago and Modberry libraries, BACnet support, LoRa workflows and field integration."},
-            {"title": "Commercial model", "body": "Pricing policy, fast installation, scalable rollout and repeatable service delivery."},
-            {"title": "Legacy transition", "body": "Move older platform components into a cleaner and more maintainable architecture."},
-            {"title": "Protocol strategy", "body": "Leverage LoRa and related communication layers for efficient building connectivity."},
-            {"title": "Sales readiness", "body": "Align product packaging and value messaging with the new platform capabilities."},
+            {"title": "Software", "body": "Cloud software, located in data center with high level security."},
+            {"title": "Hardware", "body": "Wago and Modberry libraries, BACnet, Modbus, M-Bus, W-Bus, Lora support."},
+            {"title": "Sales readiness", "body": "System is tested in multiple Latvian projects."},
+            # {"title": "Legacy transition", "body": "Move older platform components into a cleaner and more maintainable architecture."},
+            # {"title": "Protocol strategy", "body": "Leverage LoRa and related communication layers for efficient building connectivity."},
+            # {"title": "Sales readiness", "body": "Align product packaging and value messaging with the new platform capabilities."},
         ],
         "footer": "Business decision areas",
     },
     {
         "type": "architecture",
-        "title": "Reference architecture for a connected-building PaaS",
-        "subtitle": "A layered architecture linking field devices, integrations, cloud analytics and user-facing workflows",
+        "title": "Architecture for a connected-building to PaaS",
+        "subtitle": "System consists from field devices, integrations, cloud analytics and user friendly interface",
         "items": [
-            {"title": "Connectivity layer", "body": "LoRaWAN and field connectivity reduce wiring effort and extend data coverage."},
-            {"title": "Integration hub", "body": "Bring together BMS, metering, HVAC nodes and IoT data into one platform layer."},
+            {"title": "Connectivity layer", "body": "IoT device connection to LoRaWAN and later Intellify PaaS reduce wiring effort with high data coverage."},
+            {"title": "Integration layer", "body": "Integrates in to  BMS, metering, HVAC nodes, different API."},
             {"title": "Data + ML engine", "body": "Normalise data, detect inefficiencies and support optimisation decisions."},
             {"title": "Applications", "body": "Dashboards, alarms, reporting, optimisation and portfolio management services."},
         ],
         "footer": "Reference architecture",
+    },
+    {
+        "type": "gallery",
+        "title": "Platform screenshots",
+        "subtitle": "Sample pictures from the Intellify interface",
+        "cols": 2,
+        "items": [
+            {"image": HEATING_IMG, "title": "Heating consumption", "body": "Heating energy consumption review."},
+            {"image": ELECTRICAL_IMG, "title": "Electrical consumption", "body": "Electrical energy consumption review."},
+            {"image": ABCD_IMG, "title": "Efficiency view", "body": "Building efficiency assesment."},
+            {"image": ABCD1_IMG, "title": "Climate view", "body": "Building climate assesment."},
+            {"image": WARNINGS_IMG, "title": "Warnings overview", "body": "Warning cards with activity and resolution metrics."},
+            {"image": WARNINGS1_IMG, "title": "Issue monitoring", "body": "Monitoring workflow and technical review."},
+            {"image": SANKEY1_IMG, "title": "Sankey flow 1", "body": "Energy flow visualisation across building systems."},
+            {"image": SANKEY2_IMG, "title": "Sankey flow 2", "body": "Additional flow breakdown for analysis."},
+            {"image": TIME_SCH, "title": "Time schedules", "body": "Time scheduler for specific HVAC unit."},
+            {"image": CHANGE, "title": "Parameter change", "body": "Parameter change for specific HAVC unit."},
+            {"image": ALG_SEND, "title": "Algoritm send", "body": "Prediction algoritm message for time scheduler."},
+            {"image": PROGN, "title": "Algoritm prediction & reality", "body": "Temperature prediction & on time activation with delay."},
+        ],
+        "footer": "Sample UI pictures",
     },
     {
         "type": "login_cta",
@@ -555,6 +599,22 @@ def card(title: str, body: str, alt: bool = False, icon: str = "✦"):
     )
 
 
+def image_card(image_path: Path, title: str, body: str):
+    with st.container():
+        st.markdown('<div class="gallery-shell">', unsafe_allow_html=True)
+        if image_path.exists():
+            st.image(str(image_path), use_container_width=True)
+        else:
+            st.warning(f"Image not found: {image_path.name}")
+            st.markdown(
+                '<div class="gallery-note">Place the file in the assets folder to display it here.</div>',
+                unsafe_allow_html=True,
+            )
+        st.markdown(f'<div class="gallery-caption">{title}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="gallery-desc">{body}</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
 def kpi_row():
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -562,10 +622,10 @@ def kpi_row():
     with c2:
         metric_card("Maintenance reduction", "-25%", "-8% site visits")
     with c3:
-        metric_card("CO₂ reduction", "-32%", "ESG aligned")
+        metric_card("CO₂ reduction", "-20%", "ESG aligned")
     with c4:
-        metric_card("Portfolio coverage", "24 buildings", "+6 connected")
-
+        metric_card("Existing Portfolio", "24 buildings")
+        # metric_card("Existing Portfolio", "24 buildings", "+6 connected")
 
 def render_login_cta():
     section_header(
@@ -577,12 +637,10 @@ def render_login_cta():
     with center:
         st.markdown(
             """
-            <div class="modal-overlay">
-                <div class="modal-bg">
-                    <div class="modal-card">
-                        <div class="modal-title">Login preview</div>
-                        <div class="modal-sub">Secure platform access</div>
-                    </div>
+            <div class="modal-bg">
+                <div class="modal-card">
+                    <div class="modal-title">Login preview</div>
+                    <div class="modal-sub">Secure platform access</div>
                 </div>
             </div>
             """,
@@ -643,7 +701,7 @@ def render_slide(slide):
                 st.markdown(
                     f"""
                     <div class="timeline-step">
-                        <div class="timeline-index">{i+1}</div>
+                        <div class="timeline-index">{i + 1}</div>
                         <div class="timeline-title">{item["title"]}</div>
                         <div class="timeline-body">{item["body"]}</div>
                     </div>
@@ -723,6 +781,17 @@ def render_slide(slide):
                     icon=ICON_MAP.get(item["title"], "✦"),
                 )
 
+    elif slide["type"] == "gallery":
+        section_header(slide["title"], slide.get("subtitle", ""))
+        cols_n = slide.get("cols", 2)
+        items = slide["items"]
+
+        for start in range(0, len(items), cols_n):
+            cols = st.columns(cols_n)
+            for i, item in enumerate(items[start:start + cols_n]):
+                with cols[i]:
+                    image_card(item["image"], item["title"], item["body"])
+
     elif slide["type"] == "login_cta":
         render_login_cta()
 
@@ -749,8 +818,8 @@ st.markdown(
 )
 
 # ---------- TABS ----------
-tab_overview, tab_value, tab_modules, tab_arch = st.tabs(
-    ["Overview", "Value", "Modules", "Architecture"]
+tab_overview, tab_value, tab_modules, tab_arch, tab_gallery, tab_access = st.tabs(
+    ["Overview", "Value", "Modules", "Architecture", "Screenshots", "Access"]
 )
 
 with tab_overview:
@@ -761,7 +830,6 @@ with tab_overview:
 with tab_value:
     render_slide(DECK[2])
     render_slide(DECK[3])
-    render_slide(DECK[7])
 
 with tab_modules:
     render_slide(DECK[4])
@@ -769,3 +837,9 @@ with tab_modules:
 
 with tab_arch:
     render_slide(DECK[6])
+
+with tab_gallery:
+    render_slide(DECK[7])
+
+with tab_access:
+    render_slide(DECK[8])
