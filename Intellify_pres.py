@@ -24,10 +24,13 @@ TIME_SCH = ASSETS_DIR / "Schedule.png"
 CHANGE = ASSETS_DIR / "Change.png"
 ALG_SEND = ASSETS_DIR / "Alg_send.png"
 PROGN = ASSETS_DIR / "Predict.png"
-TECHN = ASSETS_DIR / "Intellify_main_devices.png"
 
-# New image
-MAIN_DEVICES_IMG = TECHN
+TECHN_ASSET = ASSETS_DIR / "Intellify_main_devices.png"
+TECHN_DATA = Path("/mnt/data/Intellify_main_devices.png")
+MAIN_DEVICES_IMG = TECHN_ASSET if TECHN_ASSET.exists() else TECHN_DATA
+
+# DIGITAL_TWIN_IMG = Path("/mnt/data/Wisdom_data.png")
+DIGITAL_TWIN_IMG = ASSETS_DIR / "Wisdom_data.png"
 
 # ---------- THEME ----------
 BG = "#22344d"
@@ -369,13 +372,6 @@ st.markdown(
         line-height: 1.5;
     }}
 
-    .tech-list {{
-        margin-top: 0.8rem;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.7rem;
-    }}
-
     .tech-pill {{
         background: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(255,255,255,0.05));
         border: 1px solid rgba(0,229,255,0.18);
@@ -384,6 +380,18 @@ st.markdown(
         color: var(--text);
         font-weight: 600;
         font-size: 0.94rem;
+        margin-bottom: 0.7rem;
+    }}
+
+    .dt-input {{
+        background: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(255,255,255,0.05));
+        border: 1px solid rgba(0,229,255,0.18);
+        border-radius: 14px;
+        padding: 0.8rem 0.9rem;
+        color: var(--text);
+        font-weight: 600;
+        font-size: 0.94rem;
+        margin-bottom: 0.7rem;
     }}
 
     div[data-testid="stTextInput"] input {{
@@ -446,7 +454,7 @@ DECK = [
     {
         "type": "timeline",
         "title": "A five-stage path from controls to connected buildings",
-        "subtitle": "Testet way for turning fragmented building systems into an integrated service platform",
+        "subtitle": "Tested way for turning fragmented building systems into an integrated service platform",
         "items": [
             {"title": "Standardisation", "body": "Automation libraries, technical documentation, data points and communication standards."},
             {"title": "Automation", "body": "HVAC logic, BMS improvements and controller configuration for reliable local control."},
@@ -490,23 +498,23 @@ DECK = [
         "title": "Core solution modules",
         "subtitle": "A modular platform that supports meter data, indoor climate, analytics and portfolio control",
         "items": [
-            {"title": "Smart Energy Meter Management", "body": "Centralize and validate energy consumption data through remote meter readings and custom export option."},
-            {"title": "Indoor climate Intelligence", "body": "Real-time climate insights and expert evaluations for healthier, more comfortable and well-controlled indoor environment."},
-            {"title": "Buildings Systems supervisorr", "body": "Centralize HVAC systems, track performance and manage maintenance to ensure top service standard."},
-            {"title": "Energy & Efficiency oversight", "body": "Transform scattered energy and monitor energy use, CO₂ footprint, and ESG performance with precise data based insights."},
-            {"title": "Portfolio Energy &Asset suite", "body": "Gain a unified overview of energy, CO₂, and system status to guide smarter budgeting, planning, and sustainability decisions."},
-            {"title": "HVAC Performance Optimiser", "body": "Machine Learning algorithms continuously fine-tune performance to cut energy costs while maintaining good indoor conditions."},
+            {"title": "Smart Energy Meter Management", "body": "Centralize and validate energy consumption data through remote meter readings and custom export options."},
+            {"title": "Indoor Climate Intelligence", "body": "Real-time climate insights and expert evaluations for a healthier, more comfortable and well-controlled indoor environment."},
+            {"title": "Building Systems Supervisor", "body": "Centralize HVAC systems, track performance and manage maintenance to ensure a top service standard."},
+            {"title": "Energy & Efficiency Oversight", "body": "Transform scattered energy data into clear monitoring of energy use, CO₂ footprint and ESG performance."},
+            {"title": "Portfolio Energy & Asset Suite", "body": "Gain a unified overview of energy, CO₂ and system status to guide smarter budgeting, planning and sustainability decisions."},
+            {"title": "HVAC Performance Optimiser", "body": "Machine learning algorithms continuously fine-tune performance to cut energy costs while maintaining good indoor conditions."},
         ],
         "footer": "Solution modules",
     },
     {
         "type": "cards",
-        "title": "Business priorities: our own software, own software for hardware and fast, reliable, price efficient ",
+        "title": "Business priorities: own software, hardware-ready integration and price-efficient delivery",
         "subtitle": "Three coordinated decision areas define platform readiness and scale potential",
         "cols": 3,
         "items": [
-            {"title": "Software", "body": "Cloud software, located in data center with high level security."},
-            {"title": "Hardware", "body": "Wago and Modberry libraries, BACnet, Modbus, M-Bus, W-Bus, Lora support."},
+            {"title": "Software", "body": "Cloud software located in a secure data centre with a high level of security."},
+            {"title": "Hardware", "body": "Wago and Modberry libraries with BACnet, Modbus, M-Bus, W-MBus and LoRa support."},
             {"title": "Sales readiness", "body": "System is tested in multiple Latvian projects."},
         ],
         "footer": "Business decision areas",
@@ -523,23 +531,44 @@ DECK = [
         ),
         "possibilities": [
             "BACnet data integration",
-            "BACnet data report",
+            "BACnet data reporting",
             "Modbus data integration",
-            "Lora data integration",
-            "W-mbus and M-bus data integration",
-            "HVAC logics",
+            "LoRa data integration",
+            "W-MBus and M-Bus data integration",
+            "HVAC logic",
             "Remote programming",
             "Data visualisation via Intellify",
         ],
         "footer": "Technical solutions overview",
     },
     {
+        "type": "digital_twin",
+        "title": "Digital twin",
+        "subtitle": "We are ready to create a building digital twin and calculate annual energy-saving potential by improving building control algorithms and operational strategy.",
+        "image": DIGITAL_TWIN_IMG,
+        "description": (
+            "Using a digital twin approach, Intellify can evaluate how building control changes affect annual "
+            "energy performance, comfort and operational efficiency. This helps identify realistic savings "
+            "before implementation and supports better technical and financial decision-making."
+        ),
+        "inputs": [
+            "Building geometrical data",
+            "Building location",
+            "U-values",
+            "Engineering systems",
+            "Working hours",
+            "Monthly electricity consumption",
+            "Monthly heating consumption",
+        ],
+        "footer": "Digital twin readiness",
+    },
+    {
         "type": "architecture",
-        "title": "Architecture for a connected-building to PaaS",
-        "subtitle": "System consists from field devices, integrations, cloud analytics and user friendly interface",
+        "title": "Architecture for a connected building PaaS",
+        "subtitle": "System consists of field devices, integrations, cloud analytics and a user-friendly interface",
         "items": [
-            {"title": "Connectivity layer", "body": "IoT device connection to LoRaWAN and later Intellify PaaS reduce wiring effort with high data coverage."},
-            {"title": "Integration layer", "body": "Integrates in to  BMS, metering, HVAC nodes, different API."},
+            {"title": "Connectivity layer", "body": "IoT device connections to LoRaWAN and Intellify PaaS reduce wiring effort while maintaining high data coverage."},
+            {"title": "Integration layer", "body": "Integrates with BMS, metering, HVAC nodes and different APIs."},
             {"title": "Data + ML engine", "body": "Normalise data, detect inefficiencies and support optimisation decisions."},
             {"title": "Applications", "body": "Dashboards, alarms, reporting, optimisation and portfolio management services."},
         ],
@@ -553,16 +582,16 @@ DECK = [
         "items": [
             {"image": HEATING_IMG, "title": "Heating consumption", "body": "Heating energy consumption review."},
             {"image": ELECTRICAL_IMG, "title": "Electrical consumption", "body": "Electrical energy consumption review."},
-            {"image": ABCD_IMG, "title": "Efficiency view", "body": "Building efficiency assesment."},
-            {"image": ABCD1_IMG, "title": "Climate view", "body": "Building climate assesment."},
+            {"image": ABCD_IMG, "title": "Efficiency view", "body": "Building efficiency assessment."},
+            {"image": ABCD1_IMG, "title": "Climate view", "body": "Building climate assessment."},
             {"image": WARNINGS_IMG, "title": "Warnings overview", "body": "Warning cards with activity and resolution metrics."},
             {"image": WARNINGS1_IMG, "title": "Issue monitoring", "body": "Monitoring workflow and technical review."},
             {"image": SANKEY1_IMG, "title": "Sankey flow 1", "body": "Energy flow visualisation across building systems."},
             {"image": SANKEY2_IMG, "title": "Sankey flow 2", "body": "Additional flow breakdown for analysis."},
-            {"image": TIME_SCH, "title": "Time schedules", "body": "Time scheduler for specific HVAC unit."},
-            {"image": CHANGE, "title": "Parameter change", "body": "Parameter change for specific HAVC unit."},
-            {"image": ALG_SEND, "title": "Algoritm send", "body": "Prediction algoritm message for time scheduler."},
-            {"image": PROGN, "title": "Algoritm prediction & reality", "body": "Temperature prediction & on time activation with delay."},
+            {"image": TIME_SCH, "title": "Time schedules", "body": "Time scheduler for a specific HVAC unit."},
+            {"image": CHANGE, "title": "Parameter change", "body": "Parameter change for a specific HVAC unit."},
+            {"image": ALG_SEND, "title": "Algorithm send", "body": "Prediction algorithm message for the time scheduler."},
+            {"image": PROGN, "title": "Algorithm prediction & reality", "body": "Temperature prediction and on-time activation with delay."},
         ],
         "footer": "Sample UI pictures",
     },
@@ -581,20 +610,17 @@ ICON_MAP = {
     "Open data foundation": "🗂️",
     "Portfolio visibility": "🏢",
     "Better commercial control": "📈",
-    "Energy Meter Management": "🔌",
-    "Climate Management": "🌡️",
-    "Technical Node Manager": "🧩",
-    "Analytics": "📉",
-    "Portfolio Manager": "🧭",
+    "Smart Energy Meter Management": "🔌",
+    "Indoor Climate Intelligence": "🌡️",
+    "Building Systems Supervisor": "🧩",
+    "Energy & Efficiency Oversight": "📉",
+    "Portfolio Energy & Asset Suite": "🧭",
     "HVAC Performance Optimiser": "🚀",
-    "Software foundation": "💻",
-    "Hardware enablement": "🖧",
-    "Commercial model": "💼",
-    "Legacy transition": "🔄",
-    "Protocol strategy": "📡",
+    "Software": "💻",
+    "Hardware": "🖧",
     "Sales readiness": "🤝",
     "Connectivity layer": "📶",
-    "Integration hub": "🔗",
+    "Integration layer": "🔗",
     "Data + ML engine": "🧠",
     "Applications": "🖥️",
 }
@@ -658,7 +684,7 @@ def image_card(image_path: Path, title: str, body: str):
 def render_technical_slide(slide):
     section_header(slide["title"], slide.get("subtitle", ""))
 
-    left, right = st.columns([1.2, 1])
+    left, right = st.columns([1.25, 1])
 
     with left:
         if slide["image"].exists():
@@ -671,11 +697,53 @@ def render_technical_slide(slide):
         )
 
     with right:
-        st.markdown('<div class="pill">Main devices: Modberry + Wago</div>', unsafe_allow_html=True)
-        st.markdown('<div class="tech-list">', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="pill">Main devices: Modberry + Wago</div>',
+            unsafe_allow_html=True,
+        )
         for item in slide["possibilities"]:
-            st.markdown(f'<div class="tech-pill">• {item}</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown(
+                f'<div class="tech-pill">{item}</div>',
+                unsafe_allow_html=True,
+            )
+
+
+def render_digital_twin_slide(slide):
+    section_header(slide["title"], slide.get("subtitle", ""))
+
+    left, right = st.columns([1.15, 1])
+
+    with left:
+        if slide["image"].exists():
+            st.image(str(slide["image"]), use_container_width=True)
+        else:
+            st.warning("Digital twin image not found.")
+
+        st.markdown(
+            f'<div class="gallery-desc" style="margin-top:0.8rem;">{slide["description"]}</div>',
+            unsafe_allow_html=True,
+        )
+
+    with right:
+        st.markdown(
+            '<div class="pill">Input data required for digital twin</div>',
+            unsafe_allow_html=True,
+        )
+
+        for item in slide["inputs"]:
+            st.markdown(
+                f'<div class="dt-input">{item}</div>',
+                unsafe_allow_html=True,
+            )
+
+        st.markdown(
+            """
+            <div style="margin-top:0.8rem; color:#7ee7ff; font-size:0.95rem; line-height:1.5;">
+                Result: estimated annual energy savings from improved HVAC control algorithms and building strategy.
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
 
 def kpi_row():
@@ -687,7 +755,7 @@ def kpi_row():
     with c3:
         metric_card("CO₂ reduction", "-20%", "ESG aligned")
     with c4:
-        metric_card("Existing Portfolio", "24 buildings")
+        metric_card("Existing portfolio", "24 buildings")
 
 
 def render_login_cta():
@@ -835,6 +903,9 @@ def render_slide(slide):
     elif slide["type"] == "technical":
         render_technical_slide(slide)
 
+    elif slide["type"] == "digital_twin":
+        render_digital_twin_slide(slide)
+
     elif slide["type"] == "architecture":
         section_header(slide["title"], slide.get("subtitle", ""))
         cols = st.columns(4)
@@ -884,8 +955,8 @@ st.markdown(
 )
 
 # ---------- TABS ----------
-tab_overview, tab_value, tab_modules, tab_tech, tab_arch, tab_gallery, tab_access = st.tabs(
-    ["Overview", "Value", "Modules", "Technical solutions", "Architecture", "Screenshots", "Access"]
+tab_overview, tab_value, tab_modules, tab_tech, tab_digital_twin, tab_arch, tab_gallery, tab_access = st.tabs(
+    ["Overview", "Value", "Modules", "Technical solutions", "Digital twin", "Architecture", "Screenshots", "Access"]
 )
 
 with tab_overview:
@@ -904,11 +975,14 @@ with tab_modules:
 with tab_tech:
     render_slide(DECK[6])
 
-with tab_arch:
+with tab_digital_twin:
     render_slide(DECK[7])
 
-with tab_gallery:
+with tab_arch:
     render_slide(DECK[8])
 
-with tab_access:
+with tab_gallery:
     render_slide(DECK[9])
+
+with tab_access:
+    render_slide(DECK[10])
