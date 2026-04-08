@@ -24,6 +24,10 @@ TIME_SCH = ASSETS_DIR / "Schedule.png"
 CHANGE = ASSETS_DIR / "Change.png"
 ALG_SEND = ASSETS_DIR / "Alg_send.png"
 PROGN = ASSETS_DIR / "Predict.png"
+TECHN = ASSETS_DIR / "Intellify_main_devices.png"
+
+# New image
+MAIN_DEVICES_IMG = TECHN
 
 # ---------- THEME ----------
 BG = "#22344d"
@@ -365,6 +369,23 @@ st.markdown(
         line-height: 1.5;
     }}
 
+    .tech-list {{
+        margin-top: 0.8rem;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.7rem;
+    }}
+
+    .tech-pill {{
+        background: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(255,255,255,0.05));
+        border: 1px solid rgba(0,229,255,0.18);
+        border-radius: 14px;
+        padding: 0.8rem 0.9rem;
+        color: var(--text);
+        font-weight: 600;
+        font-size: 0.94rem;
+    }}
+
     div[data-testid="stTextInput"] input {{
         background: rgba(255,255,255,0.06) !important;
         border: 1px solid rgba(255,255,255,0.15) !important;
@@ -487,11 +508,30 @@ DECK = [
             {"title": "Software", "body": "Cloud software, located in data center with high level security."},
             {"title": "Hardware", "body": "Wago and Modberry libraries, BACnet, Modbus, M-Bus, W-Bus, Lora support."},
             {"title": "Sales readiness", "body": "System is tested in multiple Latvian projects."},
-            # {"title": "Legacy transition", "body": "Move older platform components into a cleaner and more maintainable architecture."},
-            # {"title": "Protocol strategy", "body": "Leverage LoRa and related communication layers for efficient building connectivity."},
-            # {"title": "Sales readiness", "body": "Align product packaging and value messaging with the new platform capabilities."},
         ],
         "footer": "Business decision areas",
+    },
+    {
+        "type": "technical",
+        "title": "Technical solutions",
+        "subtitle": "Intellify uses two main devices — Modberry and Wago — to connect building systems, integrate field data and enable advanced control logic.",
+        "image": MAIN_DEVICES_IMG,
+        "description": (
+            "These edge devices form the hardware foundation of the Intellify solution. "
+            "They support open protocol connectivity, local HVAC logic execution, remote service access "
+            "and seamless data delivery to the Intellify platform for visualisation and reporting."
+        ),
+        "possibilities": [
+            "BACnet data integration",
+            "BACnet data report",
+            "Modbus data integration",
+            "Lora data integration",
+            "W-mbus and M-bus data integration",
+            "HVAC logics",
+            "Remote programming",
+            "Data visualisation via Intellify",
+        ],
+        "footer": "Technical solutions overview",
     },
     {
         "type": "architecture",
@@ -615,6 +655,29 @@ def image_card(image_path: Path, title: str, body: str):
         st.markdown('</div>', unsafe_allow_html=True)
 
 
+def render_technical_slide(slide):
+    section_header(slide["title"], slide.get("subtitle", ""))
+
+    left, right = st.columns([1.2, 1])
+
+    with left:
+        if slide["image"].exists():
+            st.image(str(slide["image"]), use_container_width=True)
+        else:
+            st.warning("Technical solutions image not found.")
+        st.markdown(
+            f'<div class="gallery-desc" style="margin-top:0.8rem;">{slide["description"]}</div>',
+            unsafe_allow_html=True,
+        )
+
+    with right:
+        st.markdown('<div class="pill">Main devices: Modberry + Wago</div>', unsafe_allow_html=True)
+        st.markdown('<div class="tech-list">', unsafe_allow_html=True)
+        for item in slide["possibilities"]:
+            st.markdown(f'<div class="tech-pill">• {item}</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
 def kpi_row():
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -625,7 +688,7 @@ def kpi_row():
         metric_card("CO₂ reduction", "-20%", "ESG aligned")
     with c4:
         metric_card("Existing Portfolio", "24 buildings")
-        # metric_card("Existing Portfolio", "24 buildings", "+6 connected")
+
 
 def render_login_cta():
     section_header(
@@ -769,6 +832,9 @@ def render_slide(slide):
             "https://docs.google.com/document/d/1gBxRWfA02gND9ZbkNRwOEhrsmDsxwW0pzpRN1DyvRoI/edit?tab=t.0",
         )
 
+    elif slide["type"] == "technical":
+        render_technical_slide(slide)
+
     elif slide["type"] == "architecture":
         section_header(slide["title"], slide.get("subtitle", ""))
         cols = st.columns(4)
@@ -818,8 +884,8 @@ st.markdown(
 )
 
 # ---------- TABS ----------
-tab_overview, tab_value, tab_modules, tab_arch, tab_gallery, tab_access = st.tabs(
-    ["Overview", "Value", "Modules", "Architecture", "Screenshots", "Access"]
+tab_overview, tab_value, tab_modules, tab_tech, tab_arch, tab_gallery, tab_access = st.tabs(
+    ["Overview", "Value", "Modules", "Technical solutions", "Architecture", "Screenshots", "Access"]
 )
 
 with tab_overview:
@@ -835,11 +901,14 @@ with tab_modules:
     render_slide(DECK[4])
     render_slide(DECK[5])
 
-with tab_arch:
+with tab_tech:
     render_slide(DECK[6])
 
-with tab_gallery:
+with tab_arch:
     render_slide(DECK[7])
 
-with tab_access:
+with tab_gallery:
     render_slide(DECK[8])
+
+with tab_access:
+    render_slide(DECK[9])

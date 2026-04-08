@@ -1,2 +1,17 @@
 Folders ML_DDPA
 .\venv\Scripts\activate
+
+Streamlit run Intellify_pres.py
+
+
+git add .
+ git commit -m "Ar_bildi T" 
+ git checkout -b "Prezent2"
+ git push origin "Prezent2"   
+
+ Githubā confirm merge
+
+ Lokāli eju atpakaļ uz main
+  git checkout main 
+   git pull origin main    
+
